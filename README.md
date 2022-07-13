@@ -10,8 +10,11 @@ CMake script for cross-platform building. Tested environments include:
 * MacOS - with UNIX Makefiles, XCode and LLVM Clang
 * Windows - with Visual Studio, NMake Makefiles, and MinGW Makefiles
 * Emscripten - with UNIX Makefiles, NMake Makefiles, and MinGW Makefiles
+<p>&nbsp;</p>
 
-# Linux
+# Preparing your Environment
+
+## Linux
 
 ### **Requirements**
 
@@ -34,7 +37,10 @@ Install toolchain and required software by issuing the following command:
 
 ``pacman -Sy base-devel libpng mesa git cmake``
 
-# MacOS
+<p>&nbsp;</p>
+
+## MacOS
+---
 
 ### **Requirements**
 
@@ -47,13 +53,14 @@ Open the ``Terminal`` App from Finder. go to Applications -> Utilities
 
 ``brew install libpng cmake``
 
-# Windows
+<p>&nbsp;</p>
+
+## Windows
+---
 
 ### Requirements
 
-The following will be required whether you use MinGW or Visual Studio.
-
-You will need to open Powershell, as Administrator.
+The following will be required whether you use MinGW or Visual Studio.You will need to open Powershell, as Administrator.
 
 Visit the [Chocolatey website](https://chocolatey.org/) for instructions on how to install Chocolatey.
 
@@ -71,21 +78,24 @@ Confirm CMake is installed and in your path by issuing the following command in 
 
 If you recieve an ``command not found`` error double check that you have actually added CMake to your path.
 
-### MinGW
-
+## MinGW
+---
 Install MinGW via ``choco install mingw`` from Powershell as Administrator
 
-### Visual Studio / NMake
-
+## Visual Studio / NMake
+---
 Download and install [Visual Studio: Community Edition](https://visualstudio.microsoft.com/downloads/).
 
 Ensure that you have installed the Desktop C++ option!
 
-# Usage
+<p>&nbsp;</p>
+
+# **Usage**
 
 IF YOU HAVE MADE IT HERE AND YOU HAVE NOT SET UP YOUR DEVELOPMENT ENVIRONMENT, GO BACK UP AND READ THE INSTRUCTIONS AGAIN!
 
 ## Linux / MacOS (with default toolchains)
+---
 
 Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
 
@@ -97,7 +107,10 @@ CMake will generate UNIX Makefiles you can use to build the project, like so:
 
 The compiled binary will be located in ``bin`` directory.
 
+<p>&nbsp;</p>
+
 ## Linux / MacOS (Emscripten)
+---
 
 **These instructions assume you have Emscripten installed, activated, and have the environment set up for an active Terminal.**
 
@@ -117,8 +130,10 @@ If you lack some sort of live server extension to your IDE, you can view it usin
 
 This command should launch the project in your default web browser.
 
+<p>&nbsp;</p>
 
 ## Windows (MinGW)
+---
 
 Open the ``Command Prompt`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
@@ -130,7 +145,10 @@ CMake will generate MinGW Makefiles you can use to build the project, like so:
 
 The compiled binary will be located in the ``bin`` directory.
 
+<p>&nbsp;</p>
+
 ## Windows (NMake)
+---
 
 Open the ``x64 Native Tools Command Prompt for VS 2022`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
@@ -142,7 +160,10 @@ CMake will generate NMake Makefiles you can use to build the project, like so:
 
 The compiled binary will be located in ``bin`` directory.
 
+<p>&nbsp;</p>
+
 ## Windows (Visual Studio)
+---
 
 Open the ``Command Prompt`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
