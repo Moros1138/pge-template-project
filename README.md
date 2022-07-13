@@ -71,6 +71,10 @@ brew install libpng cmake
 
 ### Requirements
 
+* Chocolatey
+* CMake
+* Toolchain (MinGW or Visual Studio / NMake)
+
 The following will be required whether you use MinGW or Visual Studio.You will need to open Powershell, as Administrator.
 
 Visit the [Chocolatey website](https://chocolatey.org/) for instructions on how to install Chocolatey.
