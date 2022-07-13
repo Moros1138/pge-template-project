@@ -10,7 +10,6 @@ CMake script for cross-platform building. Tested environments include:
 * MacOS - with UNIX Makefiles, XCode and LLVM Clang
 * Windows - with Visual Studio, NMake Makefiles, and MinGW Makefiles
 * Emscripten - with UNIX Makefiles, NMake Makefiles, and MinGW Makefiles
-<p>&nbsp;</p>
 
 # Preparing your Environment
 
@@ -37,10 +36,7 @@ Install toolchain and required software by issuing the following command:
 
 ``pacman -Sy base-devel libpng mesa git cmake``
 
-<p>&nbsp;</p>
-
 ## MacOS
----
 
 ### **Requirements**
 
@@ -53,10 +49,7 @@ Open the ``Terminal`` App from Finder. go to Applications -> Utilities
 
 ``brew install libpng cmake``
 
-<p>&nbsp;</p>
-
 ## Windows
----
 
 ### Requirements
 
