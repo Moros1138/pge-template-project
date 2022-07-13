@@ -13,6 +13,8 @@ CMake script for cross-platform building. Tested environments include:
 
 # Preparing your Environment
 
+The instructions to prepare your environment have been broken up for convenience. Simply follow the instructions that are pertinent to your situation.
+
 ## Linux
 
 ### **Requirements**
