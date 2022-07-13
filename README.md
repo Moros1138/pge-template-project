@@ -49,12 +49,19 @@ pacman -Sy base-devel libpng mesa git cmake
 
 ### **Requirements**
 
-* XCode (Installed from App Store)
-* [HomeBrew](https://brew.sh/)
+* XCode
+* [Homebrew Package Manager](https://brew.sh/)
 * libpng
 * CMake
 
+Install XCode from the App Store.
+
 Open the ``Terminal`` App from Finder. go to Applications -> Utilities
+
+Follow the instructions at the [Homebrew Website](https://brew.sh/) to install the Homebrew package manager.
+
+Once Homebrew is installed, issue the following command to install ``cmake`` and ``libpng``:
+
 
 ```
 brew install libpng cmake
