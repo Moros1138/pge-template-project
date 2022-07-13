@@ -20,10 +20,10 @@ The instructions to prepare your environment have been broken up for convenience
 ### **Requirements**
 
 * C/C++ Toolchain for your Linux distro
-* Mesa OpenGL Development Libraries
-* libpng
-* Git
 * CMake
+* Git
+* libpng
+* Mesa OpenGL Development Libraries
 
 ### **Ubuntu and Ubuntu based distros**
 
@@ -36,13 +36,13 @@ sudo apt update
 Install toolchain and required software by issuing the following command:
 
 ```
-sudo apt install build-essential libglu1-mesa-dev libpng-dev git cmake
+sudo apt install build-essential cmake git libpng-dev libglu1-mesa-dev
 ```
 
-### **Arch and Arch based distros**
+### **Arch, Manjaro, and Arch based distros**
 
 ```
-pacman -Sy base-devel libpng mesa git cmake
+sudo pacman -Sy base-devel cmake git libpng mesa
 ```
 
 ## MacOS
@@ -53,6 +53,7 @@ pacman -Sy base-devel libpng mesa git cmake
 * [Homebrew Package Manager](https://brew.sh/)
 * libpng
 * CMake
+* git
 
 Install XCode from the App Store.
 
@@ -60,11 +61,11 @@ Open the ``Terminal`` App from Finder. go to Applications -> Utilities
 
 Follow the instructions at the [Homebrew Website](https://brew.sh/) to install the Homebrew package manager.
 
-Once Homebrew is installed, issue the following command to install ``cmake`` and ``libpng``:
+Once Homebrew is installed, issue the following command to install ``cmake``,``libpng``, and ``git``:
 
 
 ```
-brew install libpng cmake
+brew install libpng cmake git
 ```
 
 ## Windows
