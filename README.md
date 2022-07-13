@@ -29,14 +29,21 @@ The instructions to prepare your environment have been broken up for convenience
 
 Update your package manager by issuing the following command:
 
-``sudo apt update``
+```
+sudo apt update
+```
 
 Install toolchain and required software by issuing the following command:
-``sudo apt install build-essential libglu1-mesa-dev libpng-dev git cmake``
+
+```
+sudo apt install build-essential libglu1-mesa-dev libpng-dev git cmake
+```
 
 ### **Arch and Arch based distros**
 
-``pacman -Sy base-devel libpng mesa git cmake``
+```
+pacman -Sy base-devel libpng mesa git cmake
+```
 
 ## MacOS
 
@@ -49,7 +56,9 @@ Install toolchain and required software by issuing the following command:
 
 Open the ``Terminal`` App from Finder. go to Applications -> Utilities
 
-``brew install libpng cmake``
+```
+brew install libpng cmake
+```
 
 ## Windows
 
@@ -61,7 +70,9 @@ Visit the [Chocolatey website](https://chocolatey.org/) for instructions on how 
 
 Once you've got Chocolatey installed, we can install CMake:
 
-``choco install cmake``
+```
+choco install cmake
+```
 
 Say ``yes`` to all of the scripts Chocolatey wants you to run!
 
@@ -69,7 +80,9 @@ After the installation has completed, find the Cmake ``bin`` directory, it is ty
 
 Confirm CMake is installed and in your path by issuing the following command in a Command Prompt:
 
-``cmake --version``
+```
+cmake --version
+```
 
 If you recieve an ``command not found`` error double check that you have actually added CMake to your path.
 
@@ -92,11 +105,15 @@ IF YOU HAVE MADE IT HERE AND YOU HAVE NOT SET UP YOUR DEVELOPMENT ENVIRONMENT, G
 
 Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
 
-``cmake .``
+```
+cmake .
+```
 
 CMake will generate UNIX Makefiles you can use to build the project, like so:
 
-``make``
+```
+make
+```
 
 The compiled binary will be located in ``bin`` directory.
 
@@ -106,17 +123,23 @@ The compiled binary will be located in ``bin`` directory.
 
 Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
 
-``emcmake cmake .``
+```
+emcmake cmake .
+```
 
 Emscripten's ``emcmake`` utility will invoke CMake with all the magic required to make it work with Emscripten. Generating UNIX Makefiles you can use to build the project, like so:
 
-``make``
+```
+make
+```
 
 The compiled HTML, Javascript, WebAssembly, and Data will be in the ``bin`` directory.
 
 If you lack some sort of live server extension to your IDE, you can view it using the ``emrun`` utility, like so:
 
-``emrun bin/PROJECTNAME.html``
+```
+emrun bin/PROJECTNAME.html
+```
 
 This command should launch the project in your default web browser.
 
@@ -124,11 +147,15 @@ This command should launch the project in your default web browser.
 
 Open the ``Command Prompt`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
-``cmake . -G "MinGW Makefiles"``
+```
+cmake . -G "MinGW Makefiles"
+```
 
 CMake will generate MinGW Makefiles you can use to build the project, like so:
 
-``mingw32-make``
+```
+mingw32-make
+```
 
 The compiled binary will be located in the ``bin`` directory.
 
@@ -136,11 +163,15 @@ The compiled binary will be located in the ``bin`` directory.
 
 Open the ``x64 Native Tools Command Prompt for VS 2022`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
-``cmake . -G "NMake Makefiles"``
+```
+cmake . -G "NMake Makefiles"
+```
 
 CMake will generate NMake Makefiles you can use to build the project, like so:
 
-``nmake``
+```
+nmake
+```
 
 The compiled binary will be located in ``bin`` directory.
 
@@ -148,7 +179,9 @@ The compiled binary will be located in ``bin`` directory.
 
 Open the ``Command Prompt`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
-``cmake .``
+```
+cmake .
+```
 
 CMake will generate a Visual Studio solution and project. You can use it like any other Visual Studio Project.
 
