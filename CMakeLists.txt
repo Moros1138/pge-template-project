@@ -208,7 +208,9 @@ if (NOT APPLE AND NOT MSVC AND NOT EMSCRIPTEN)
 endif (NOT APPLE AND NOT MSVC AND NOT EMSCRIPTEN)
 
 # set include directory
-include_directories(${C_CXX_HEADERS_DIR})
+if (EXISTS "${C_CXX_HEADERS_DIR}" AND IS_DIRECTORY "${C_CXX_HEADERS_DIR}")
+    include_directories(${C_CXX_HEADERS_DIR})
+endif (EXISTS "${C_CXX_HEADERS_DIR}" AND IS_DIRECTORY "${C_CXX_HEADERS_DIR}")
 
 # copy assets folder into build folder exists and is not emscripten
 if (NOT EMSCRIPTEN AND EXISTS "${CMAKE_SOURCE_DIR}/assets" AND IS_DIRECTORY "${CMAKE_SOURCE_DIR}/assets")
