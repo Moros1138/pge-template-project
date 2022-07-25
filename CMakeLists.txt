@@ -9,6 +9,14 @@ cmake_minimum_required(VERSION 3.10)
 project(TestApp)
 
 #
+# HAS_TERMINAL
+#
+#   - on (default): display a terminal window along side the application window
+#   - off: prevent terminal window from being displayed
+#
+option(HAS_TERMINAL "Show a terminal window for STDOUT/STDERR" on)
+
+#
 # C_CXX_SOURCES_DIR
 #
 #   - the place where your C/C++ source files are located
@@ -25,6 +33,12 @@ set(C_CXX_HEADERS_DIR "include")
 ##########################################################################
 # DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!!       #
 ##########################################################################
+
+if(HAS_TERMINAL)
+    message(STATUS "Terminal: on")
+else()
+    message(STATUS "Terminal: off")
+endif()
 
 # detect emscripten environment
 if (${CMAKE_CXX_COMPILER} MATCHES ".*em[+][+]")
@@ -151,12 +165,20 @@ if (WIN32 AND NOT EMSCRIPTEN)
             VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
         )
         
-        target_link_options(${OutputExecutable} PRIVATE "/SUBSYSTEM:WINDOWS")
+        # set subsytem, console if HAS_TERMINAL is true. windows if not
+        if (HAS_TERMINAL)
+            target_link_options(${OutputExecutable} PRIVATE "/SUBSYSTEM:CONSOLE")
+        else ()
+            target_link_options(${OutputExecutable} PRIVATE "/SUBSYSTEM:WINDOWS")
+        endif ()
+
     endif (MSVC)
     
     # prevent console launch when compiled with MinGW
     if (MINGW)
-        target_link_libraries(${OutputExecutable} -mwindows)
+        if (NOT HAS_TERMINAL)
+            target_link_libraries(${OutputExecutable} -mwindows)
+        endif (NOT HAS_TERMINAL)
     endif (MINGW)
 
     # GDI+
