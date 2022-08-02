@@ -126,8 +126,14 @@ if (UNIX)
     
     find_package(PNG REQUIRED)
     target_link_libraries(${OutputExecutable} ${PNG_LIBRARIES})
-
     include_directories(${PNG_INCLUDE_DIRS})
+
+    if (NOT APPLE AND NOT MINGW AND NOT CYGWIN)
+        find_package(OpenAL REQUIRED)
+        target_link_libraries(${OutputExecutable} ${OPENAL_LIBRARY})
+        include_directories(${OPENAL_INCLUDE_DIRS})
+        set_target_properties(${OutputExecutable} PROPERTIES COMPILE_FLAGS "-DUSE_OPENAL")
+    endif (NOT APPLE AND NOT MINGW AND NOT CYGWIN)
 
 endif (UNIX)
 
@@ -193,6 +199,10 @@ if (WIN32 AND NOT EMSCRIPTEN)
     set(DWMAPI_LIBRARY dwmapi)
     target_link_libraries(${OutputExecutable} ${DWMAPI_LIBRARY})
 
+    # winmm
+    set(WINMM_LIBRARY winmm)
+    target_link_libraries(${OutputExecutable} ${WINMM_LIBRARY})
+    
 endif (WIN32 AND NOT EMSCRIPTEN)
 
 # Emscripten specifics
