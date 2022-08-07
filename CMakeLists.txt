@@ -113,7 +113,7 @@ if (UNIX)
     # Threads
     if (NOT EMSCRIPTEN)
         find_package(Threads REQUIRED)
-        target_link_libraries(${OutputExecutable} ${Threads_LIBRARIES})
+        target_link_libraries(${OutputExecutable} Threads::Threads)
         
         include_directories(${Threads_INCLUDE_DIRS})
     endif (NOT EMSCRIPTEN)
