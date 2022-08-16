@@ -242,7 +242,5 @@ endif (EXISTS "${CMAKE_SOURCE_DIR}/${C_CXX_HEADERS_DIR}" AND IS_DIRECTORY "${CMA
 
 # copy assets folder into build folder exists and is not emscripten
 if (NOT EMSCRIPTEN AND EXISTS "${CMAKE_SOURCE_DIR}/assets" AND IS_DIRECTORY "${CMAKE_SOURCE_DIR}/assets")
-    file(COPY "${CMAKE_SOURCE_DIR}/assets" DESTINATION "${PROJECT_BINARY_DIR}/bin")
+    file(COPY "${CMAKE_SOURCE_DIR}/assets" DESTINATION "${CMAKE_BINARY_DIR}/bin")
 endif (NOT EMSCRIPTEN AND EXISTS "${CMAKE_SOURCE_DIR}/assets" AND IS_DIRECTORY "${CMAKE_SOURCE_DIR}/assets")
-
-
