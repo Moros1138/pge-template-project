@@ -218,7 +218,7 @@ if (EMSCRIPTEN)
             -sMAX_WEBGL_VERSION=2
             -sMIN_WEBGL_VERSION=2
             -sUSE_LIBPNG=1
-            -USE_SDL_MIXER=2
+            -sUSE_SDL_MIXER=2
             -sLLD_REPORT_UNDEFINED
             --preload-file ${ASSETS}@assets)
     else()
@@ -229,7 +229,7 @@ if (EMSCRIPTEN)
             -sMAX_WEBGL_VERSION=2
             -sMIN_WEBGL_VERSION=2
             -sUSE_LIBPNG=1
-            -USE_SDL_MIXER=2
+            -sUSE_SDL_MIXER=2
             -sLLD_REPORT_UNDEFINED)
     endif()
 
