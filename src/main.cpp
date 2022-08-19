@@ -1,3 +1,6 @@
+#define OLC_SOUNDWAVE
+#include "olcSoundWaveEngine.h"
+
 #define OLC_PGE_APPLICATION
 #include "olcPixelGameEngine.h"
 
@@ -15,17 +18,36 @@ public:
 	bool OnUserCreate() override
 	{
 		// Called once at the start, so create things here
+		engine.InitialiseAudio();
+		w.LoadAudioWaveform("assets/SampleA.wav");
+		ship.Load("assets/ship.png");
+		// w.file.data()[23] = 8;
+		
 		return true;
 	}
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{
-		// Called once per frame, draws random coloured pixels
-		for (int x = 0; x < ScreenWidth(); x++)
-			for (int y = 0; y < ScreenHeight(); y++)
-				Draw(x, y, olc::Pixel(rand() % 256, rand() % 256, rand() % 256));
+		if(GetKey(olc::SPACE).bPressed)
+		{
+			engine.PlayWaveform(&w);
+		}
+			
+		Clear(olc::BLACK);
+		DrawSprite(0,0, ship.Sprite());
+		
 		return true;
 	}
+
+	bool OnUserDestroy() override
+	{
+		engine.DestroyAudio();
+		return true;
+	}
+	
+	olc::Renderable ship;
+	olc::sound::WaveEngine engine;
+	olc::sound::Wave w;
 };
 
 int main()
