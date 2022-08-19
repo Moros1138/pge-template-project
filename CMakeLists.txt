@@ -179,7 +179,7 @@ if (WIN32 AND NOT EMSCRIPTEN)
     # prevent console launch when compiled with MinGW
     if (MINGW)
         if (NOT HAS_TERMINAL)
-            target_link_libraries(${OutputExecutable} -mwindows)
+            target_link_libraries(${OutputExecutable} -mwindows -municode)
         endif (NOT HAS_TERMINAL)
     endif (MINGW)
 
