@@ -88,45 +88,50 @@ if (APPLE AND NOT EMSCRIPTEN)
     target_link_libraries(${OutputExecutable} ${GLUT_LIBRARIES})
 
 endif (APPLE AND NOT EMSCRIPTEN)
-    
+
 # Linux Specifics
 if (UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
 
     # X11
     find_package(X11 REQUIRED)
-    target_link_libraries(${OutputExecutable} ${X11_LIBRARIES})
+    target_link_libraries(${OutputExecutable} X11::X11)
 
     include_directories(${X11_INCLUDE_DIRS})
 
 endif (UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
 
-# PNG for emscripten
+# Emscripten Ports
 if (EMSCRIPTEN)
+    # SDL2_mixer
+    execute_process(COMMAND "${EMSCRIPTEN_ROOT_PATH}/embuilder${EMCC_SUFFIX}" build sdl2_mixer)
+    
+    # libpng
     execute_process(COMMAND "${EMSCRIPTEN_ROOT_PATH}/embuilder${EMCC_SUFFIX}" build libpng)
+    
+    # zlib, for libpng
     execute_process(COMMAND "${EMSCRIPTEN_ROOT_PATH}/embuilder${EMCC_SUFFIX}" build zlib)
 endif (EMSCRIPTEN)
 
 # UNIX or UNIX-like (Linux, MacOS, MSYS2, Cygwin, etc)
 if (UNIX)
     
-    # Threads
     if (NOT EMSCRIPTEN)
+        # Threads
         find_package(Threads REQUIRED)
         target_link_libraries(${OutputExecutable} Threads::Threads)
-        
         include_directories(${Threads_INCLUDE_DIRS})
+        
+        # SDL2_mixer
+        find_package(SDL2_mixer REQUIRED)
+        target_link_libraries(${OutputExecutable} SDL2_mixer::SDL2_mixer)
+        include_directories(${SDL2_MIXER_INCLUDE_DIRS})
+        
+        add_compile_definitions(SOUNDWAVE_USING_SDLMIXER=1)
     endif (NOT EMSCRIPTEN)
     
     find_package(PNG REQUIRED)
-    target_link_libraries(${OutputExecutable} ${PNG_LIBRARIES})
+    target_link_libraries(${OutputExecutable} PNG::PNG)
     include_directories(${PNG_INCLUDE_DIRS})
-
-    if (NOT APPLE AND NOT MINGW AND NOT CYGWIN AND NOT EMSCRIPTEN)
-        find_package(OpenAL REQUIRED)
-        target_link_libraries(${OutputExecutable} ${OPENAL_LIBRARY})
-        include_directories(${OPENAL_INCLUDE_DIRS})
-        set_target_properties(${OutputExecutable} PROPERTIES COMPILE_FLAGS "-DUSE_OPENAL")
-    endif (NOT APPLE AND NOT MINGW AND NOT CYGWIN AND NOT EMSCRIPTEN)
 
 endif (UNIX)
 
@@ -213,6 +218,8 @@ if (EMSCRIPTEN)
             -sMAX_WEBGL_VERSION=2
             -sMIN_WEBGL_VERSION=2
             -sUSE_LIBPNG=1
+            -USE_SDL_MIXER=2
+            -sLLD_REPORT_UNDEFINED
             --preload-file ${ASSETS}@assets)
     else()
         target_link_options(
@@ -221,7 +228,9 @@ if (EMSCRIPTEN)
             -sALLOW_MEMORY_GROWTH=1
             -sMAX_WEBGL_VERSION=2
             -sMIN_WEBGL_VERSION=2
-            -sUSE_LIBPNG=1)
+            -sUSE_LIBPNG=1
+            -USE_SDL_MIXER=2
+            -sLLD_REPORT_UNDEFINED)
     endif()
 
 endif (EMSCRIPTEN)
@@ -229,7 +238,7 @@ endif (EMSCRIPTEN)
 
 # Not on Mac; Not with MSVC; Not with Emscripten
 if (NOT APPLE AND NOT MSVC AND NOT EMSCRIPTEN)
-    
+
     # C++ Filesystem
     target_link_libraries(${OutputExecutable} stdc++fs)
 
