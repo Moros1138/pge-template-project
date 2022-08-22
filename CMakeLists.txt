@@ -97,11 +97,10 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 # Executable aka binary output
 add_executable(${OutputExecutable} ${SOURCE_CXX_FILES})
 
-
 ######################################################################
-# MacOS: XCode
+# MacOS
 ######################################################################
-if(APPLE AND XCODE)
+if(APPLE)
     
     # OpenGL
     set(OpenGL_GL_PREFERENCE LEGACY)
