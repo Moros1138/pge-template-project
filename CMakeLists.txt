@@ -85,9 +85,6 @@ set(SOURCE_DATA_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/${ASSETS_DIR})
 set(SOURCE_CXX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${C_CXX_HEADERS_DIR})
 set(SOURCE_CXX_SRC_DIR     ${CMAKE_CURRENT_SOURCE_DIR}/${C_CXX_SOURCES_DIR})
 
-
-
-
 # Source Files are Curated Here
 file(
     GLOB_RECURSE SOURCE_CXX_FILES
@@ -127,17 +124,12 @@ if(APPLE AND XCODE)
     
     # SDL2_mixer
     set(USE_SDL2_MIXER ON)
-    # find_package(SDL2_mixer REQUIRED)
-    # target_link_libraries(${OutputExecutable} SDL2_mixer::SDL2_mixer)
-    # include_directories(${SDL2_MIXER_INCLUDE_DIRS})
-
-    # add_compile_definitions(SOUNDWAVE_USING_SDLMIXER=1)
             
     find_package(PNG REQUIRED)
     target_link_libraries(${OutputExecutable} PNG::PNG)
     include_directories(${PNG_INCLUDE_DIRS})
     
-endif()
+endif() # APPLE
 
 ######################################################################
 # Windows: MinGW
