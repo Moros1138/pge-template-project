@@ -320,7 +320,6 @@ if(USE_SDL2_MIXER AND NOT EMSCRIPTEN)
     # SDL2_mixer
     find_package(SDL2_mixer REQUIRED)
     target_link_libraries(${OutputExecutable} SDL2_mixer::SDL2_mixer)
-    include_directories(${SDL2_MIXER_INCLUDE_DIRS})
 
     add_compile_definitions(SOUNDWAVE_USING_SDLMIXER=1)
 
