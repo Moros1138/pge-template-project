@@ -274,19 +274,8 @@ if (EMSCRIPTEN)
     # Generate an HTML file
     set(CMAKE_EXECUTABLE_SUFFIX .html)
 
-    # SDL2_mixer: build cache
-    execute_process(COMMAND "${EMSCRIPTEN_ROOT_PATH}/embuilder${EMCC_SUFFIX}" build sdl2_mixer)
-    
-    # libpng: build cache
-    execute_process(COMMAND "${EMSCRIPTEN_ROOT_PATH}/embuilder${EMCC_SUFFIX}" build libpng)
-    
-    # zlib, for libpng: build cache
-    execute_process(COMMAND "${EMSCRIPTEN_ROOT_PATH}/embuilder${EMCC_SUFFIX}" build zlib)
-
-    # require libpng
-    find_package(PNG REQUIRED)
-    target_link_libraries(${OutputExecutable} PNG::PNG)
-    include_directories(${PNG_INCLUDE_DIRS})
+    # Build Cache: SDL2_mixer, libpng, zlib
+    execute_process(COMMAND "${EMSCRIPTEN_ROOT_PATH}/embuilder${EMCC_SUFFIX}" build sdl2_mixer libpng zlib)
     
     if(EXISTS "${SOURCE_DATA_DIR}" AND IS_DIRECTORY "${SOURCE_DATA_DIR}")
         target_link_options(
