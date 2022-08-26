@@ -8,16 +8,11 @@ cmake_minimum_required(VERSION 3.10)
 #
 project(TestApp)
 
-#
-# HAS_TERMINAL
-#
-#   - on (default): display a terminal window along side the application window
-#   - off: prevent terminal window from being displayed
-#
+# Options you can set via command-line
 option(HAS_TERMINAL "Show a terminal window for STDOUT/STDERR" ON)
-
+option(USE_ALSA       "Force using ALSA as audio backend (Linux-only)")
+option(USE_PULSEAUDIO "Force using PulseAudio as audio backend (Linux-only)")
 option(USE_SDL2_MIXER "Force using SDL2_mixer as audio backend")
-
 
 #
 # C_CXX_SOURCES_DIR
@@ -40,16 +35,9 @@ set(C_CXX_HEADERS_DIR "include")
 #
 set(ASSETS_DIR "assets")
 
-
 ##########################################################################
 # DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!!       #
 ##########################################################################
-
-if(HAS_TERMINAL)
-    message(STATUS "Terminal: on")
-else()
-    message(STATUS "Terminal: off")
-endif()
 
 # Set C++ Standards
 set(CMAKE_CXX_STANDARD 17)
@@ -100,6 +88,8 @@ add_executable(${OutputExecutable} ${SOURCE_CXX_FILES})
 ######################################################################
 # MacOS
 ######################################################################
+
+
 if(APPLE)
     
     # OpenGL
@@ -248,14 +238,32 @@ if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
     target_link_libraries(${OutputExecutable} Threads::Threads)
     include_directories(${Threads_INCLUDE_DIRS})
 
-    if(NOT USE_SDL2_MIXER)
+    # TODO: sanity checks
+    
+    if(USE_ALSA)
         
         # ALSA
         find_package(ALSA REQUIRED)
         target_link_libraries(${OutputExecutable} ALSA::ALSA)
         include_directories(${ALSA_INCLUDE_DIRS})
+        add_compile_definitions(SOUNDWAVE_USING_ALSA=1)
+        
+    elseif(USE_SDL2_MIXER)
 
-    endif() # NOT USE_SDL2_MIXER
+        # Because SDL2_mixer can be used on multiple platforms, we
+        # defer it's inclusion until outside of the platform/toolchain
+        # selection logic.
+
+    else()  # PulseAudio is Default
+
+        # PulseAudio
+        find_package(PulseAudio REQUIRED)
+        target_link_libraries(${OutputExecutable} ${PULSEAUDIO_LIBRARY} pulse-simple)
+        include_directories(${PULSEAUDIO_INCLUDE_DIR})
+
+        add_compile_definitions(SOUNDWAVE_USING_PULSE=1)
+
+    endif()
 
     find_package(PNG REQUIRED)
     target_link_libraries(${OutputExecutable} PNG::PNG)
