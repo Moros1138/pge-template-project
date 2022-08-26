@@ -24,7 +24,7 @@ The instructions to prepare your environment have been broken up for convenience
 * Git
 * libpng
 * Mesa OpenGL Development Libraries
-* OpenAL Libraries
+* PulseAudio development Libraries
 
 ### **Ubuntu and Ubuntu based distros**
 
@@ -37,13 +37,13 @@ sudo apt update
 Install toolchain and required software by issuing the following command:
 
 ```
-sudo apt install build-essential cmake git libpng-dev libglu1-mesa-dev libopenal-dev
+sudo apt install build-essential cmake git libpng-dev libglu1-mesa-dev libpulse-dev
 ```
 
 ### **Arch, Manjaro, and Arch based distros**
 
 ```
-sudo pacman -Sy base-devel cmake git libpng mesa openal
+sudo pacman -Sy base-devel cmake git libpng mesa libpulse
 ```
 
 ## MacOS
