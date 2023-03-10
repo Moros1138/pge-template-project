@@ -1,4 +1,4 @@
-# PGE Template Project v2.19
+# PGE Template Project v2.20
 
 This is a template project for use with the [olcPixelGameEngine](https://github.com/OneLoneCoder/olcPixelGameEngine). It serves as a jumping off point for you to build your masterpiece application.
 
