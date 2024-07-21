@@ -10,9 +10,6 @@ project(TestApp)
 
 # Options you can set via command-line
 option(HAS_TERMINAL "Show a terminal window for STDOUT/STDERR" ON)
-option(USE_ALSA       "Force using ALSA as audio backend (Linux-only)")
-option(USE_PULSEAUDIO "Force using PulseAudio as audio backend (Linux-only)")
-option(USE_SDL2_MIXER "Force using SDL2_mixer as audio backend")
 
 #
 # C_CXX_SOURCES_DIR
@@ -40,7 +37,7 @@ set(ASSETS_DIR "assets")
 ##########################################################################
 
 # Set C++ Standards
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -111,9 +108,6 @@ if(APPLE)
     target_link_libraries(${OutputExecutable} Threads::Threads)
     include_directories(${Threads_INCLUDE_DIRS})
     
-    # SDL2_mixer
-    set(USE_SDL2_MIXER ON)
-            
     find_package(PNG REQUIRED)
     target_link_libraries(${OutputExecutable} PNG::PNG)
     include_directories(${PNG_INCLUDE_DIRS})
@@ -146,15 +140,6 @@ if(WIN32 AND MINGW)
     # Dwmapi
     set(DWMAPI_LIBRARY dwmapi)
     target_link_libraries(${OutputExecutable} ${DWMAPI_LIBRARY})
-
-    if(NOT USE_SDL2_MIXER)
-        
-        # winmm
-        set(WINMM_LIBRARY winmm)
-        target_link_libraries(${OutputExecutable} ${WINMM_LIBRARY})
-
-    endif() # NOT USE_SDL2_MIXER
-
 
     # stdc++fs
     target_link_libraries(${OutputExecutable} stdc++fs)
@@ -206,14 +191,6 @@ if(WIN32 AND MSVC)
     set(DWMAPI_LIBRARY dwmapi)
     target_link_libraries(${OutputExecutable} ${DWMAPI_LIBRARY})
 
-    if(NOT USE_SDL2_MIXER)
-    
-        # winmm
-        set(WINMM_LIBRARY winmm)
-        target_link_libraries(${OutputExecutable} ${WINMM_LIBRARY})
-
-    endif()
-
 endif() # Visual Studio / MSVC
 
 ######################################################################
@@ -237,33 +214,6 @@ if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
     find_package(Threads REQUIRED)
     target_link_libraries(${OutputExecutable} Threads::Threads)
     include_directories(${Threads_INCLUDE_DIRS})
-
-    # TODO: sanity checks
-    
-    if(USE_ALSA)
-        
-        # ALSA
-        find_package(ALSA REQUIRED)
-        target_link_libraries(${OutputExecutable} ALSA::ALSA)
-        include_directories(${ALSA_INCLUDE_DIRS})
-        add_compile_definitions(SOUNDWAVE_USING_ALSA=1)
-        
-    elseif(USE_SDL2_MIXER)
-
-        # Because SDL2_mixer can be used on multiple platforms, we
-        # defer it's inclusion until outside of the platform/toolchain
-        # selection logic.
-
-    else()  # PulseAudio is Default
-
-        # PulseAudio
-        find_package(PulseAudio REQUIRED)
-        target_link_libraries(${OutputExecutable} ${PULSEAUDIO_LIBRARY} pulse-simple)
-        include_directories(${PULSEAUDIO_INCLUDE_DIR})
-
-        add_compile_definitions(SOUNDWAVE_USING_PULSE=1)
-
-    endif()
 
     find_package(PNG REQUIRED)
     target_link_libraries(${OutputExecutable} PNG::PNG)
@@ -293,7 +243,6 @@ if (EMSCRIPTEN)
             -sMAX_WEBGL_VERSION=2
             -sMIN_WEBGL_VERSION=2
             -sUSE_LIBPNG=1
-            -sUSE_SDL_MIXER=2          # thanks for the s, cstd
             -sLLD_REPORT_UNDEFINED
             --preload-file ${SOURCE_DATA_DIR}@assets)
     else()
@@ -304,23 +253,10 @@ if (EMSCRIPTEN)
             -sMAX_WEBGL_VERSION=2
             -sMIN_WEBGL_VERSION=2
             -sUSE_LIBPNG=1
-            -sUSE_SDL_MIXER=2          # thanks for the s, cstd
             -sLLD_REPORT_UNDEFINED)
     endif()
 
 endif() # Emscripten
-
-
-if(USE_SDL2_MIXER AND NOT EMSCRIPTEN)
-        
-    # SDL2_mixer
-    find_package(SDL2_mixer REQUIRED)
-    target_link_libraries(${OutputExecutable} SDL2_mixer::SDL2_mixer)
-
-    add_compile_definitions(SOUNDWAVE_USING_SDLMIXER=1)
-
-endif() # USE_SDL2_MIXER
-
 
 ######################################################################
 # Set include directory
@@ -328,7 +264,6 @@ endif() # USE_SDL2_MIXER
 if(IS_DIRECTORY ${SOURCE_CXX_INCLUDE_DIR})
     include_directories(${SOURCE_CXX_INCLUDE_DIR})
 endif()
-
 
 ######################################################################
 # Copy assets/ directory target
