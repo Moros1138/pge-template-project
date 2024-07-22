@@ -120,13 +120,13 @@ IF YOU HAVE MADE IT HERE AND YOU HAVE NOT SET UP YOUR DEVELOPMENT ENVIRONMENT, G
 Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
 
 ```
-cmake . -B build -G "Unix Makefiles"
+cmake . -B linux-build -G "Unix Makefiles"
 ```
 
 CMake will generate UNIX Makefiles you can use to build the project, like so:
 
 ```
-cmake --build build
+cmake --build linux-build
 ```
 
 The compiled binary will be located in ``bin`` directory.
