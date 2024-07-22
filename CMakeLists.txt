@@ -222,6 +222,9 @@ if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
     # stdc++fs
     target_link_libraries(${OutputExecutable} stdc++fs)
 
+    # dl, for miniaudio
+    target_link_libraries(${OutputExecutable} dl)
+
 endif() # Linux
 
 ######################################################################
