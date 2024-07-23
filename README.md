@@ -157,7 +157,7 @@ Emscripten's ``emcmake`` utility will invoke CMake with all the magic required t
 cmake --build emscripten-build
 ```
 
-The compiled HTML, Javascript, WebAssembly, and Data will be in the ``bin`` directory.
+The compiled HTML, Javascript, WebAssembly, and Data will be in the ``emscripten-build/bin`` directory.
 
 If you lack some sort of live server extension to your IDE, you can view it using the ``emrun`` utility, like so:
 
