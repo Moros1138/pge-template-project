@@ -131,6 +131,16 @@ cmake --build linux-build
 
 The compiled binary will be located in ``linux-build/bin`` directory.
 
+## MacOS (with XCode)
+
+Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
+
+```
+cmake . -B xcode-build -G "xcode"
+```
+
+CMake will generate an XCode project in ``xcode-build``. You can use it like any other XCode project.
+
 ## Linux / MacOS (Emscripten)
 
 **These instructions assume you have Emscripten installed, activated, and have the environment set up for an active Terminal.**
