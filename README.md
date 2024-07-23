@@ -131,6 +131,8 @@ cmake --build linux-build
 
 The compiled binary will be located in ``linux-build/bin`` directory.
 
+**NOTE: if you're executing the program, ensure you have the correct working directory, which contains the executable!**
+
 ## MacOS (with XCode)
 
 Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
@@ -183,6 +185,8 @@ cmake --build mingw-build
 
 The compiled binary will be located in the ``mingw-build/bin`` directory.
 
+**NOTE: if you're executing the program, ensure you have the correct working directory, which contains the executable!**
+
 ## Windows (NMake)
 
 Open the ``x64 Native Tools Command Prompt for VS 2022`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
@@ -198,6 +202,8 @@ cmake --build nmake-build
 ```
 
 The compiled binary will be located in ``nmake-build/bin`` directory.
+
+**NOTE: if you're executing the program, ensure you have the correct working directory, which contains the executable!**
 
 ## Windows (Visual Studio)
 
