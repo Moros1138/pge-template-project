@@ -181,7 +181,7 @@ CMake will generate MinGW Makefiles you can use to build the project, like so:
 cmake --build mingw-build
 ```
 
-The compiled binary will be located in the ``bin`` directory.
+The compiled binary will be located in the ``mingw-build/bin`` directory.
 
 ## Windows (NMake)
 
