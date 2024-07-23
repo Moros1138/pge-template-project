@@ -129,7 +129,7 @@ CMake will generate UNIX Makefiles you can use to build the project, like so:
 cmake --build linux-build
 ```
 
-The compiled binary will be located in ``bin`` directory.
+The compiled binary will be located in ``linux-build/bin`` directory.
 
 ## Linux / MacOS (Emscripten)
 
