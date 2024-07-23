@@ -197,7 +197,7 @@ CMake will generate NMake Makefiles you can use to build the project, like so:
 cmake --build nmake-build 
 ```
 
-The compiled binary will be located in ``bin`` directory.
+The compiled binary will be located in ``nmake-build/bin`` directory.
 
 ## Windows (Visual Studio)
 
