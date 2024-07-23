@@ -207,5 +207,5 @@ Open the ``Command Prompt`` prompt and navigate to the directory which you downl
 cmake . -B vs-build
 ```
 
-CMake will generate a Visual Studio solution and project. You can use it like any other Visual Studio Project.
+CMake will generate a Visual Studio solution and project in ``vs-build``. You can use it like any other Visual Studio Project.
 
