@@ -1,8 +1,5 @@
 #include "olcPixelGameEngine.h"
-#include "olcSoundWaveEngine.h"
-#include "AssetManager.h"
-
-using am = AssetManager;
+#include "olcPGEX_MiniAudio.h"
 
 
 class OneLoneCoder_Asteroids : public olc::PixelGameEngine
@@ -33,20 +30,34 @@ private:
     std::vector<std::pair<float, float>> vecModelShip;
     std::vector<std::pair<float, float>> vecModelAsteroid;
     
-    olc::sound::WaveEngine waveEngine;
+    std::map<std::string, olc::Renderable*> gfx;
+    std::map<std::string, int> sfx;
+
+    olc::MiniAudio audio;
     
 public:
 
     bool OnUserCreate() override
     {
-        waveEngine.InitialiseAudio();
-        am::LoadGraphic("background", "assets/gfx/space.png");
+        auto loadGraphic = [&](const std::string& key, const std::string& filepath)
+        {
+            olc::Renderable* renderable = new olc::Renderable();
+            renderable->Load(filepath);
+            gfx[key] = renderable;
+        };
         
-        am::LoadSound("bg-music",     "assets/sounds/bg-music.wav");
-        am::LoadSound("laser",        "assets/sounds/Laser_Shoot11.wav");
-        am::LoadSound("explosion",    "assets/sounds/Explosions1.wav");
-        am::LoadSound("lose",         "assets/sounds/lose9.wav");
-        am::LoadSound("thruster",     "assets/sounds/thruster.wav");
+        auto loadSound = [&](const std::string& key, const std::string& filepath)
+        {
+            sfx[key] = audio.LoadSound(filepath);
+        };
+
+        loadGraphic("background", "assets/gfx/space.png");
+        
+        loadSound("bg-music",     "assets/sounds/bg-music.wav");
+        loadSound("laser",        "assets/sounds/Laser_Shoot11.wav");
+        loadSound("explosion",    "assets/sounds/Explosions1.wav");
+        loadSound("lose",         "assets/sounds/lose9.wav");
+        loadSound("thruster",     "assets/sounds/thruster.wav");
 
         vecModelShip = 
         {
@@ -70,14 +81,26 @@ public:
         EnableLayer(backgroundLayer, true);
         
         SetDrawTarget(backgroundLayer);
-        DrawSprite(0,0, am::GetSprite("background"));
+        DrawSprite(0,0, gfx.at("background")->Sprite());
         SetDrawTarget(nullptr);
 
         ResetGame();
-        waveEngine.PlayWaveform(am::GetSound("bg-music"), true);
+        audio.Play(sfx.at("bg-music"), true);
 
         return true;
     }
+
+    bool OnUserDestroy() override
+    {
+        for(auto it = gfx.begin(); it != gfx.end(); ++it)
+        {
+            delete it->second;
+        }
+
+        return true;
+    }
+
+
     int backgroundLayer = -1;
 
     void ResetGame()
@@ -125,8 +148,6 @@ public:
         return sqrt((x-cx)*(x-cx) + (y-cy)*(y-cy)) < radius;
     }
 
-    olc::sound::PlayingWave thruster;
-
     // Called by olcConsoleGameEngine
     bool OnUserUpdate(float fElapsedTime) override
     {
@@ -151,10 +172,10 @@ public:
         }
 
         if(GetKey(olc::UP).bPressed)
-            thruster = waveEngine.PlayWaveform(am::GetSound("thruster"), true);
+            audio.Play(sfx.at("thruster"), true);
         
         if(GetKey(olc::UP).bReleased)
-            waveEngine.StopWaveform(thruster);
+            audio.Stop(sfx.at("thruster"));
 
         // VELOCITY changes POSITION (with respect to time)
         player.x += player.dx * fElapsedTime;
@@ -168,7 +189,7 @@ public:
             if (IsPointInsideCircle(a.x, a.y, a.nSize, player.x, player.y))
             {
                 bDead = true; // Uh oh...
-                waveEngine.PlayWaveform(am::GetSound("lose"));
+                audio.Play(sfx.at("lose"));
             }
                 
 
@@ -176,7 +197,7 @@ public:
         if (GetKey(olc::SPACE).bReleased)
         {
             vecBullets.push_back({ 0, player.x, player.y, 150.0f * sinf(player.angle), -150.0f * cosf(player.angle), 100.0f });
-            waveEngine.PlayWaveform(am::GetSound("laser"));
+            audio.Play(sfx.at("laser"));
         }
             
 
@@ -231,7 +252,7 @@ public:
                     // Remove asteroid - Same approach as bullets
                     a.x = -100;
                     nScore += 100; // Small score increase for hitting asteroid
-                    waveEngine.PlayWaveform(am::GetSound("explosion"));
+                    audio.Play(sfx.at("explosion"));
                 }
             }
         }

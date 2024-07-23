@@ -24,7 +24,6 @@ The instructions to prepare your environment have been broken up for convenience
 * Git
 * libpng
 * Mesa OpenGL Development Libraries
-* PulseAudio development Libraries
 
 ### **Ubuntu and Ubuntu based distros**
 
@@ -37,13 +36,13 @@ sudo apt update
 Install toolchain and required software by issuing the following command:
 
 ```
-sudo apt install build-essential cmake git libpng-dev libglu1-mesa-dev libpulse-dev
+sudo apt install build-essential cmake git libpng-dev libglu1-mesa-dev
 ```
 
 ### **Arch, Manjaro, and Arch based distros**
 
 ```
-sudo pacman -Sy base-devel cmake git libpng mesa libpulse
+sudo pacman -Sy base-devel cmake git libpng mesa
 ```
 
 ## MacOS
@@ -66,7 +65,9 @@ Once Homebrew is installed, issue the following command to install ``cmake``,``l
 
 
 ```
-brew install libpng cmake git
+brew install libpng 
+brew install cmake
+brew install git
 ```
 
 ## Windows
@@ -119,16 +120,28 @@ IF YOU HAVE MADE IT HERE AND YOU HAVE NOT SET UP YOUR DEVELOPMENT ENVIRONMENT, G
 Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
 
 ```
-cmake .
+cmake . -B linux-build -G "Unix Makefiles"
 ```
 
 CMake will generate UNIX Makefiles you can use to build the project, like so:
 
 ```
-make
+cmake --build linux-build
 ```
 
-The compiled binary will be located in ``bin`` directory.
+The compiled binary will be located in ``linux-build/bin`` directory.
+
+**NOTE: if you're executing the program, ensure you have the correct working directory, which contains the executable!**
+
+## MacOS (with XCode)
+
+Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
+
+```
+cmake . -B xcode-build -G "xcode"
+```
+
+CMake will generate an XCode project in ``xcode-build``. You can use it like any other XCode project.
 
 ## Linux / MacOS (Emscripten)
 
@@ -137,21 +150,21 @@ The compiled binary will be located in ``bin`` directory.
 Open a Terminal and navigate to the directory which you downloaded the project. Issue the following command:
 
 ```
-emcmake cmake .
+emcmake cmake . -B emscripten-build
 ```
 
 Emscripten's ``emcmake`` utility will invoke CMake with all the magic required to make it work with Emscripten. Generating UNIX Makefiles you can use to build the project, like so:
 
 ```
-make
+cmake --build emscripten-build
 ```
 
-The compiled HTML, Javascript, WebAssembly, and Data will be in the ``bin`` directory.
+The compiled HTML, Javascript, WebAssembly, and Data will be in the ``emscripten-build/bin`` directory.
 
 If you lack some sort of live server extension to your IDE, you can view it using the ``emrun`` utility, like so:
 
 ```
-emrun bin/PROJECTNAME.html
+emrun path/to/build/bin/PROJECTNAME.html
 ```
 
 This command should launch the project in your default web browser.
@@ -161,40 +174,44 @@ This command should launch the project in your default web browser.
 Open the ``Command Prompt`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
 ```
-cmake . -G "MinGW Makefiles"
+cmake . -B mingw-build -G "MinGW Makefiles"
 ```
 
 CMake will generate MinGW Makefiles you can use to build the project, like so:
 
 ```
-mingw32-make
+cmake --build mingw-build
 ```
 
-The compiled binary will be located in the ``bin`` directory.
+The compiled binary will be located in the ``mingw-build/bin`` directory.
+
+**NOTE: if you're executing the program, ensure you have the correct working directory, which contains the executable!**
 
 ## Windows (NMake)
 
 Open the ``x64 Native Tools Command Prompt for VS 2022`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
 ```
-cmake . -G "NMake Makefiles"
+cmake . -B nmake-build -G "NMake Makefiles"
 ```
 
 CMake will generate NMake Makefiles you can use to build the project, like so:
 
 ```
-nmake
+cmake --build nmake-build 
 ```
 
-The compiled binary will be located in ``bin`` directory.
+The compiled binary will be located in ``nmake-build/bin`` directory.
+
+**NOTE: if you're executing the program, ensure you have the correct working directory, which contains the executable!**
 
 ## Windows (Visual Studio)
 
 Open the ``Command Prompt`` prompt and navigate to the directory which you downloaded the project. Issue the following command:
 
 ```
-cmake .
+cmake . -B vs-build
 ```
 
-CMake will generate a Visual Studio solution and project. You can use it like any other Visual Studio Project.
+CMake will generate a Visual Studio solution and project in ``vs-build``. You can use it like any other Visual Studio Project.
 
